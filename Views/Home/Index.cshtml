@@ -1,0 +1,53 @@
+﻿@model IEnumerable<WebApplication1.Models.Produkt>
+
+<h1>Lista produktów</h1>
+
+<p>
+    <!-- Dodaj przycisk do dodawania nowych produktów -->
+    <a asp-controller="Produkty" asp-action="Create" class="btn btn-primary">Dodaj nowy produkt</a>
+    <a asp-controller="Home" asp-action="Zamow" class="btn btn-success">Zamów</a>
+
+</p>
+
+<form asp-controller="Produkty" asp-action="WedlugKategorii" method="get" class="form-inline">
+    <button type="submit" class="btn btn-primary">Filtruj po kategoriach</button>
+</form>
+
+
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Nazwa</th>
+        <th>Opis</th>
+        <th>Kategoria</th>
+        <th>Cena</th>
+        <th>Zdjęcie</th>
+        <th>Akcje</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var produkt in Model)
+    {
+        <tr>
+            <td>@produkt.Nazwa</td>
+            <td>@produkt.Opis</td>
+            <td>@produkt.Kategoria</td>
+            <td>@produkt.Cena</td>
+            <td>
+                @if (!string.IsNullOrEmpty(produkt.Zdjecie))
+                {
+                    <img src="@produkt.Zdjecie" alt="Zdjęcie produktu" style="width:100px;" />
+                }
+                else
+                {
+                    <span>Brak zdjęcia</span>
+                }
+            </td>
+            <td>
+                <a asp-controller="Produkty" asp-action="Delete" asp-route-id="@produkt.Id" class="btn btn-danger">Usuń</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

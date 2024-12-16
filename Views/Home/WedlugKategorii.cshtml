@@ -1,0 +1,77 @@
+﻿@model IEnumerable<WebApplication1.Models.Produkt>
+
+@{
+    ViewData["Title"] = "Produkty według kategorii";
+}
+
+<h1>Produkty według kategorii</h1>
+
+<form asp-action="WedlugKategorii" method="get">
+    <div class="form-group">
+        <label for="kategoria">Wybierz kategorię:</label>
+        <select id="kategoria" name="kategoria" class="form-control">
+            <!-- Opcja "Wszystkie" -->
+            @if (string.IsNullOrEmpty(ViewBag.WybranaKategoria as string))
+            {
+                <option value="" selected>Wszystkie</option>
+            }
+            else
+            {
+                <option value="">Wszystkie</option>
+            }
+
+            <!-- Iteracja po kategoriach -->
+            @foreach (var kat in (IEnumerable<string>)ViewBag.Kategorie)
+            {
+                if (kat == (ViewBag.WybranaKategoria as string))
+                {
+                    <option value="@kat" selected>@kat</option>
+                }
+                else
+                {
+                    <option value="@kat">@kat</option>
+                }
+            }
+        </select>
+
+      
+    </div>
+    <button type="submit" class="btn btn-primary">Filtruj</button>
+</form>
+
+
+
+
+<!-- Tabela z produktami -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nazwa</th>
+            <th>Opis</th>
+            <th>Kategoria</th>
+            <th>Cena</th>
+            <th>Zdjęcie</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var produkt in Model)
+        {
+            <tr>
+                <td>@produkt.Nazwa</td>
+                <td>@produkt.Opis</td>
+                <td>@produkt.Kategoria</td>
+                <td>@produkt.Cena</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(produkt.Zdjecie))
+                    {
+                        <img src="@produkt.Zdjecie" alt="Zdjęcie produktu" style="width:100px;" />
+                    }
+                    else
+                    {
+                        <span>Brak zdjęcia</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

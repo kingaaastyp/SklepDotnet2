@@ -1,0 +1,64 @@
+﻿@model WebApplication1.Models.Uzytkownik
+
+@{
+    ViewData["Title"] = "Zamów";
+}
+
+<h1>Formularz zamówienia</h1>
+
+<!-- Wyświetlanie komunikatów o błędach -->
+@if (ViewData.ModelState?.ContainsKey("") == true && ViewData.ModelState[""].Errors?.Any() == true)
+{
+    <div class="alert alert-danger">
+        @ViewData.ModelState[""].Errors.FirstOrDefault()?.ErrorMessage
+    </div>
+}
+
+<form asp-action="Zamow" method="post">
+    <div class="form-group">
+        <label asp-for="Imie" class="control-label"></label>
+        <input asp-for="Imie" class="form-control" />
+        <span asp-validation-for="Imie" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Nazwisko" class="control-label"></label>
+        <input asp-for="Nazwisko" class="form-control" />
+        <span asp-validation-for="Nazwisko" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Adres" class="control-label"></label>
+        <textarea asp-for="Adres" class="form-control"></textarea>
+        <span asp-validation-for="Adres" class="text-danger"></span>
+    </div>
+
+    <h2>Wybierz produkty:</h2>
+    <div>
+        @if (ViewBag.Produkty is IEnumerable<SelectListItem> produkty)
+        {
+            foreach (var produkt in produkty)
+            {
+                <div class="form-check">
+                    <input type="checkbox" name="wybraneProdukty" value="@produkt.Value" class="form-check-input" />
+                    <label class="form-check-label">@produkt.Text</label>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="alert alert-warning">
+                Nie znaleziono produktów do wyświetlenia.
+            </div>
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary">Złóż zamówienie</button>
+</form>
+
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Powrót</a>
+</div>
