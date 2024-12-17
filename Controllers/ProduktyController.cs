@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 using WebApplication1.Data;
@@ -27,8 +22,6 @@ namespace WebApplication1.Controllers
                 .Distinct()
                 .ToListAsync();
         }
-
-        // GET: Produkty/WedlugKategorii
         public async Task<IActionResult> WedlugKategorii(string kategoria)
         {
             ViewBag.Kategorie = await PobierzKategorie();
@@ -39,27 +32,14 @@ namespace WebApplication1.Controllers
 
             ViewBag.WybranaKategoria = kategoria;
 
-            return View("WedlugKategorii", produkty); // Szuka w Views/Home
+            return View("WedlugKategorii", produkty); 
         }
-
-        // GET: Produkty/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null) return NotFound();
-
-            var produkt = await _context.Produkty.FirstOrDefaultAsync(m => m.Id == id);
-            if (produkt == null) return NotFound();
-
-            return View("Details", produkt); // Szuka w Views/Home
-        }
-
-        // GET: Produkty/Create
+        
         public IActionResult Create()
         {
-            return View("Create"); // Szuka w Views/Home
+            return View("Create"); 
         }
 
-        // POST: Produkty/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Produkt produkt)
@@ -79,40 +59,7 @@ namespace WebApplication1.Controllers
             }
         }
 
-        // GET: Produkty/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null) return NotFound();
-
-            var produkt = await _context.Produkty.FindAsync(id);
-            if (produkt == null) return NotFound();
-
-            return View("Edit", produkt); // Szuka w Views/Home
-        }
-
-        // POST: Produkty/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nazwa,Opis,Zdjecie,Kategoria,Cena")] Produkt produkt)
-        {
-            if (id != produkt.Id) return NotFound();
-
-            if (!ModelState.IsValid) return View("Edit", produkt);
-
-            try
-            {
-                _context.Update(produkt);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Home");
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!_context.Produkty.Any(e => e.Id == id)) return NotFound();
-                throw;
-            }
-        }
-
-        // GET: Produkty/Delete/5
+     
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
@@ -120,10 +67,9 @@ namespace WebApplication1.Controllers
             var produkt = await _context.Produkty.FirstOrDefaultAsync(m => m.Id == id);
             if (produkt == null) return NotFound();
 
-            return View("Delete", produkt); // Szuka w Views/Home
+            return View("Delete", produkt);
         }
-
-        // POST: Produkty/Delete/5
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

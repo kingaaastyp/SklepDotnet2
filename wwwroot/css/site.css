@@ -20,3 +20,14 @@ html {
 body {
   margin-bottom: 60px;
 }
+.btn-gray {
+  background-color: #d6d6d6; /* Szary kolor */
+  color: #000; 
+  border-color: #c0c0c0;
+}
+
+.btn-light-green {
+  background-color: #90ee90; /* Lekki zielony */
+  color: #000; 
+  border-color: #8bc98b;
+}

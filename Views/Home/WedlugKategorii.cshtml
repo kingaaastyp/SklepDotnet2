@@ -10,7 +10,7 @@
     <div class="form-group">
         <label for="kategoria">Wybierz kategorię:</label>
         <select id="kategoria" name="kategoria" class="form-control">
-            <!-- Opcja "Wszystkie" -->
+            
             @if (string.IsNullOrEmpty(ViewBag.WybranaKategoria as string))
             {
                 <option value="" selected>Wszystkie</option>
@@ -20,7 +20,6 @@
                 <option value="">Wszystkie</option>
             }
 
-            <!-- Iteracja po kategoriach -->
             @foreach (var kat in (IEnumerable<string>)ViewBag.Kategorie)
             {
                 if (kat == (ViewBag.WybranaKategoria as string))
@@ -42,7 +41,6 @@
 
 
 
-<!-- Tabela z produktami -->
 <table class="table">
     <thead>
         <tr>

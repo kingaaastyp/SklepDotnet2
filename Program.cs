@@ -3,10 +3,11 @@ using WebApplication1.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Konfiguracja DbContext z PostgreSQL
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddSession();
 
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllersWithViews()
     .AddRazorOptions(options =>
     {
@@ -25,7 +26,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseSession();
 app.UseAuthorization();
 
 app.MapControllerRoute(

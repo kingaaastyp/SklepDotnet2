@@ -6,6 +6,12 @@ namespace WebApplication1.Models
     {
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "Login jest wymagany")]
+        public string Login { get; set; }
+
+        [Required(ErrorMessage = "Hasło jest wymagane")]
+        public string Haslo { get; set; }
+        
         [Required(ErrorMessage = "Imię jest wymagane")]
         [StringLength(50, ErrorMessage = "Imię nie może przekraczać 50 znaków")]
         public string Imie { get; set; }

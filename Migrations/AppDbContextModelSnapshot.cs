@@ -74,10 +74,18 @@ namespace WebApplication1.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Haslo")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Imie")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Login")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Nazwisko")
                         .IsRequired()

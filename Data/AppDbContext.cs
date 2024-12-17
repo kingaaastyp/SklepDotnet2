@@ -16,7 +16,7 @@ namespace WebApplication1.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Konfiguracja klucza złożonego dla ZamowienieProdukt
+            // Konfiguracja klucza złożonego dla ZP
             modelBuilder.Entity<ZamowienieProdukt>()
                 .HasKey(zp => new { zp.ZamowienieId, zp.ProduktId });
 
@@ -30,7 +30,6 @@ namespace WebApplication1.Data
                 .WithMany(p => p.ZamowienieProdukty)
                 .HasForeignKey(zp => zp.ProduktId);
 
-            // Konfiguracja dla pola Cena w Produkty
             modelBuilder.Entity<Produkt>()
                 .Property(p => p.Cena)
                 .HasPrecision(18, 2);
